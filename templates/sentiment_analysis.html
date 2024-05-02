@@ -1,0 +1,67 @@
+<html>
+<head>
+    <title>Sentiment Analysis</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+
+</head>
+<body>
+<center id="content">
+    <h3 class="app-title" style="font-family: 'Rowdies', cursive;color:white">Sentiment Analysis of {{title}}</h3>
+    {% if reviews %}
+    <h5 class="app-title" style="font-family: 'Rowdies', cursive;color:white">USER REVIEWS</h5>
+    <div class="col-md-12" style="margin: 0 auto; margin-top:25px;">
+        <table class="table table-bordered" bordercolor="white" style="color:white; width: 50%;">
+            <thead>
+                <tr>
+                    <th class="text-center" scope="col" style="width: 75%">Comments</th>
+                    <th class="text-center" scope="col">Sentiments</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for review, status in reviews.items() if not reviews.hidden %}
+                {% if status =='Positive' %}
+                <tr style="background-color:#81c784;">
+                    {% else %}
+                <tr style="background-color:#ff0000;">
+                    {% endif %}
+                    <td>{{review}}</td>
+                    <td>
+                        <center>
+
+                            {{status}} :
+                            {% if status =='Positive' %}
+                            &#128515;
+                            {% else %}
+                            &#128534;
+                            {% endif %}
+                        </center>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div style="color:white;">
+        <h1 style="color:white"> Sorry, the reviews for this movie are not available! :( </h1>
+    </div>
+    {% endif %}
+</center>
+</body>
+</html>
